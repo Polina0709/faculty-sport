@@ -1,0 +1,66 @@
+cabal-version:      3.12
+name:               faculty-sport
+version:            0.1.0.0
+license:            MIT
+license-file:       LICENSE
+author:             Polina Melnyk
+build-type:         Simple
+
+common warnings
+    ghc-options: -Wall
+
+library
+    import:           warnings
+
+    exposed-modules:  MyLib
+          Infra.DB.Sql
+          Domain.Student
+          Domain.Teacher
+          Domain.Section
+          Domain.Schedule
+          Domain.Location
+          Domain.Competition
+          Domain.Enrollment
+          Domain.Common
+          Infra.DB.Pool
+          Infra.DB.Repo
+          UseCases.Students
+          UseCases.Sections
+          UseCases.Schedule
+          UseCases.Competitions
+          UseCases.Enrollments
+          UseCases.Teachers
+          UseCases.Locations
+          UseCases.Coaches
+
+    hs-source-dirs:   src
+    default-language: Haskell2010
+    ghc-options:      -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints
+    build-depends:
+            base ^>=4.18.3.0
+            , text
+            , bytestring
+            , containers
+            , time
+            , aeson
+            , mysql-simple
+            , resource-pool
+
+executable faculty-sport
+    import:           warnings
+    main-is:          Main.hs
+    hs-source-dirs:   app
+    default-language: Haskell2010
+    ghc-options:      -threaded -rtsopts -with-rtsopts=-N -Wall
+    build-depends:
+        base ^>=4.18.3.0
+        , faculty-sport
+        , text
+        , bytestring
+        , time
+        , aeson
+        , mysql-simple
+        , resource-pool
+        , optparse-applicative
+
+
