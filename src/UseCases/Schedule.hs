@@ -19,7 +19,6 @@ listScheduleForSection conn secId = do
   rows <- q conn sql (Only secId)
   pure (fmap toSchedule rows)
 
--- Людський список з назвою локації
 -- (id слоту, weekday, start, end, location_name)
 listSchedulePretty :: Connection -> Int -> IO [(Int, Int, T.Text, T.Text, T.Text)]
 listSchedulePretty conn secId = do

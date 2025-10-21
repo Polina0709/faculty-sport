@@ -1,0 +1,23 @@
+# Haskell / Cabal build
+dist/
+dist-newstyle/
+cabal.sandbox.config
+*.o
+*.hi
+*.dyn_o
+*.dyn_hi
+
+# OS / Editor junk
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Credentials / local configs
+cabal.project.local
+.env
+*.log
+
+# MySQL dumps, backups
+*.sql~

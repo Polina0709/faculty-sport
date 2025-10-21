@@ -23,7 +23,7 @@ getConnectInfo :: IO ConnectInfo
 getConnectInfo = do
   host <- fromMaybe "127.0.0.1" <$> lookupEnv "DB_HOST"
   user <- fromMaybe "fs_user"   <$> lookupEnv "DB_USER"
-  pass <- fromMaybe "StrongPassword!" <$> lookupEnv "DB_PASS"
+  pass <- fromMaybe "fs_pass" <$> lookupEnv "DB_PASS"
   db   <- fromMaybe "faculty_sport"   <$> lookupEnv "DB_NAME"
   pure defaultConnectInfo
       { connectHost     = host
@@ -35,9 +35,9 @@ getConnectInfo = do
 withPool :: (DbPool -> IO a) -> IO a
 withPool action = do
   ci <- getConnectInfo
-  stripes  <- readEnv "DB_POOL_STRIPES" 1          -- кількість “смужок”
-  perStripe<- readEnv "DB_POOL_RES"     10         -- коннекшенів на смужку
-  idleSec  <- readEnv "DB_POOL_IDLE"    60         -- idle таймаут
+  stripes  <- readEnv "DB_POOL_STRIPES" 1
+  perStripe<- readEnv "DB_POOL_RES"     10
+  idleSec  <- readEnv "DB_POOL_IDLE"    60
   pool <- createPool (connect ci) close stripes (fromIntegral (idleSec :: Int) :: NominalDiffTime) perStripe
   r <- action pool
   destroyAllResources pool
